@@ -4,42 +4,66 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends =
+  Object.assign ||
+  function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 
-var objectType = exports.objectType = function objectType(obj) {
+var objectType = (exports.objectType = function objectType(obj) {
   return Object.prototype.toString.call(obj).slice(8, -1);
-};
-var isDefined = exports.isDefined = function isDefined(param) {
+});
+var isDefined = (exports.isDefined = function isDefined(param) {
   return typeof param != "undefined";
-};
-var isUndefined = exports.isUndefined = function isUndefined(param) {
+});
+var isUndefined = (exports.isUndefined = function isUndefined(param) {
   return typeof param == "undefined";
-};
-var isFunction = exports.isFunction = function isFunction(param) {
+});
+var isFunction = (exports.isFunction = function isFunction(param) {
   return typeof param == "function";
-};
-var isNumber = exports.isNumber = function isNumber(param) {
+});
+var isNumber = (exports.isNumber = function isNumber(param) {
   return typeof param == "number" && !isNaN(param);
-};
-var isString = exports.isString = function isString(str) {
+});
+var isString = (exports.isString = function isString(str) {
   return objectType(str) === "String";
-};
-var isArray = exports.isArray = function isArray(arr) {
+});
+var isArray = (exports.isArray = function isArray(arr) {
   return objectType(arr) === "Array";
-};
+});
 
-var closest = exports.closest = function closest(target, selector) {
+var closest = (exports.closest = function closest(target, selector) {
   // closest(e.target, '.field')
   while (target) {
     if (target.matches && target.matches(selector)) return target;
     target = target.parentNode;
   }
   return null;
-};
+});
 
-var getOffsetRect = exports.getOffsetRect = function getOffsetRect(elem) {
+var getOffsetRect = (exports.getOffsetRect = function getOffsetRect(elem) {
   // (1)
   var box = elem.getBoundingClientRect();
 
@@ -59,40 +83,63 @@ var getOffsetRect = exports.getOffsetRect = function getOffsetRect(elem) {
   var left = box.left + scrollLeft - clientLeft;
 
   return { top: Math.round(top), left: Math.round(left) };
-};
+});
 
-var getTotalScroll = exports.getTotalScroll = function getTotalScroll(elem) {
+var getTotalScroll = (exports.getTotalScroll = function getTotalScroll(elem) {
   var top = 0;
   var left = 0;
 
-  while (elem = elem.parentNode) {
+  while ((elem = elem.parentNode)) {
     top += elem.scrollTop || 0;
     left += elem.scrollLeft || 0;
   }
 
   return { top: top, left: left };
-};
+});
 
-var getTransformProps = exports.getTransformProps = function getTransformProps(x, y) {
+var getTransformProps = (exports.getTransformProps = function getTransformProps(
+  x,
+  y
+) {
   return {
-    transform: 'translate(' + x + 'px, ' + y + 'px)'
+    transform: "translate(" + x + "px, " + y + "px)"
   };
-};
+});
 
-var listWithChildren = exports.listWithChildren = function listWithChildren(list, childrenProp) {
-  return list.map(function (item) {
-    return _extends({}, item, _defineProperty({}, childrenProp, item[childrenProp] ? listWithChildren(item[childrenProp], childrenProp) : []));
+var listWithChildren = (exports.listWithChildren = function listWithChildren(
+  list,
+  childrenProp
+) {
+  return list.map(function(item) {
+    return _extends(
+      {},
+      item,
+      _defineProperty(
+        {},
+        childrenProp,
+        item[childrenProp]
+          ? listWithChildren(item[childrenProp], childrenProp)
+          : []
+      )
+    );
   });
-};
+});
 
-var getAllNonEmptyNodesIds = exports.getAllNonEmptyNodesIds = function getAllNonEmptyNodesIds(items, childrenProp) {
+var getAllNonEmptyNodesIds = (exports.getAllNonEmptyNodesIds = function getAllNonEmptyNodesIds(
+  items,
+  childrenProp
+) {
   var childrenIds = [];
-  var ids = items.filter(function (item) {
-    return item[childrenProp].length;
-  }).map(function (item) {
-    childrenIds = childrenIds.concat(getAllNonEmptyNodesIds(item[childrenProp], childrenProp));
-    return item.id;
-  });
+  var ids = items
+    .filter(function(item) {
+      return item[childrenProp].length;
+    })
+    .map(function(item) {
+      childrenIds = childrenIds.concat(
+        getAllNonEmptyNodesIds(item[childrenProp], childrenProp)
+      );
+      return item.id;
+    });
 
   return ids.concat(childrenIds);
-};
+});

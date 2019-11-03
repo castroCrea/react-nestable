@@ -1,22 +1,22 @@
-export const objectType = (obj) => {
+export const objectType = obj => {
   return Object.prototype.toString.call(obj).slice(8, -1);
 };
-export const isDefined = (param) => {
+export const isDefined = param => {
   return typeof param != "undefined";
 };
-export const isUndefined = (param) => {
+export const isUndefined = param => {
   return typeof param == "undefined";
 };
-export const isFunction = (param) => {
+export const isFunction = param => {
   return typeof param == "function";
 };
-export const isNumber = (param) => {
+export const isNumber = param => {
   return typeof param == "number" && !isNaN(param);
 };
-export const isString = (str) => {
+export const isString = str => {
   return objectType(str) === "String";
 };
-export const isArray = (arr) => {
+export const isArray = arr => {
   return objectType(arr) === "Array";
 };
 
@@ -29,7 +29,7 @@ export const closest = (target, selector) => {
   return null;
 };
 
-export const getOffsetRect = (elem) => {
+export const getOffsetRect = elem => {
   // (1)
   var box = elem.getBoundingClientRect();
 
@@ -51,7 +51,7 @@ export const getOffsetRect = (elem) => {
   return { top: Math.round(top), left: Math.round(left) };
 };
 
-export const getTotalScroll = (elem) => {
+export const getTotalScroll = elem => {
   let top = 0;
   let left = 0;
 
@@ -65,7 +65,7 @@ export const getTotalScroll = (elem) => {
 
 export const getTransformProps = (x, y) => {
   return {
-    transform: 'translate(' + x + 'px, ' + y + 'px)'
+    transform: "translate(" + x + "px, " + y + "px)"
   };
 };
 
@@ -85,7 +85,9 @@ export const getAllNonEmptyNodesIds = (items, childrenProp) => {
   let ids = items
     .filter(item => item[childrenProp].length)
     .map(item => {
-      childrenIds = childrenIds.concat(getAllNonEmptyNodesIds(item[childrenProp], childrenProp));
+      childrenIds = childrenIds.concat(
+        getAllNonEmptyNodesIds(item[childrenProp], childrenProp)
+      );
       return item.id;
     });
 

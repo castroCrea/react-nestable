@@ -1,19 +1,13 @@
 const webpack = require("webpack");
 const yargs = require("yargs");
 const path = require("path");
-const nib = require('nib');
+const nib = require("nib");
 
-const argv = yargs
-  .boolean("p")
-  .alias("p", "optimize-minimize")
-  .argv;
-
+const argv = yargs.boolean("p").alias("p", "optimize-minimize").argv;
 
 module.exports = {
   entry: {
-    example: [
-      path.join(__dirname, "src", "example", "example.js")
-    ]
+    example: [path.join(__dirname, "src", "example", "example.js")]
   },
 
   output: {
@@ -41,11 +35,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: [
-          "style",
-          "css",
-          "autoprefixer?browsers=last 2 version"
-        ]
+        loaders: ["style", "css", "autoprefixer?browsers=last 2 version"]
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -56,12 +46,10 @@ module.exports = {
 
   resolve: {
     extensions: ["", ".js", ".css", ".styl"],
-    root: [
-      path.join(__dirname, "src")
-    ]
+    root: [path.join(__dirname, "src")]
   },
   resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
+    root: path.join(__dirname, "node_modules")
   },
 
   cache: !argv.p,
@@ -75,18 +63,20 @@ module.exports = {
     use: [nib()]
   },
 
-  plugins: (function () {
+  plugins: (function() {
     const plugins = [];
 
     plugins.push(new webpack.optimize.OccurenceOrderPlugin());
 
     if (argv.p) {
       plugins.push(new webpack.optimize.DedupePlugin());
-      plugins.push(new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      }));
+      plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {
+            warnings: false
+          }
+        })
+      );
       plugins.push(new webpack.optimize.AggressiveMergingPlugin());
     } else {
       plugins.push(new webpack.HotModuleReplacementPlugin());

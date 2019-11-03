@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import cn from 'classnames';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import cn from "classnames";
 
-import Icon from '../Icon';
+import Icon from "../Icon";
 
 class NestableItem extends Component {
   static propTypes = {
@@ -41,10 +41,10 @@ class NestableItem extends Component {
 
     let itemProps = {
       className: cn(
-        "nestable-item" + (isCopy ? '-copy' : ''),
-        "nestable-item" + (isCopy ? '-copy' : '') + '-' + item.id,
+        "nestable-item" + (isCopy ? "-copy" : ""),
+        "nestable-item" + (isCopy ? "-copy" : "") + "-" + item.id,
         {
-          'is-dragging': isDragging
+          "is-dragging": isDragging
         }
       )
     };
@@ -55,19 +55,23 @@ class NestableItem extends Component {
       if (dragItem) {
         rowProps = {
           ...rowProps,
-          onMouseEnter: (e) => options.onMouseEnter(e, item)
+          onMouseEnter: e => options.onMouseEnter(e, item)
         };
       } else {
         handlerProps = {
           ...handlerProps,
           draggable: true,
-          onDragStart: (e) => options.onDragStart(e, item)
+          onDragStart: e => options.onDragStart(e, item)
         };
       }
     }
 
     if (handler) {
-      Handler = <span className="nestable-item-handler" {...handlerProps}>{handler}</span>;
+      Handler = (
+        <span className="nestable-item-handler" {...handlerProps}>
+          {handler}
+        </span>
+      );
       //Handler = React.cloneElement(handler, handlerProps);
     } else {
       rowProps = {
@@ -76,13 +80,11 @@ class NestableItem extends Component {
       };
     }
 
-    const collapseIcon = hasChildren
-      ? (
-        <span onClick={() => options.onToggleCollapse(item)}>
-          {renderCollapseIcon({ isCollapsed })}
-        </span>
-      )
-      : null;
+    const collapseIcon = hasChildren ? (
+      <span onClick={() => options.onToggleCollapse(item)}>
+        {renderCollapseIcon({ isCollapsed })}
+      </span>
+    ) : null;
 
     return (
       <li {...itemProps}>

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import Nestable from '../Nestable';
+import React, { Component } from "react";
+import { render } from "react-dom";
+import Nestable from "../Nestable";
 
 const styles = {
   position: "relative",
@@ -23,25 +23,25 @@ const handlerStyles = {
 const items = [
   {
     id: 0,
-    text: 'Andy'
+    text: "Andy"
   },
   {
     id: 1,
-    text: 'Harry',
+    text: "Harry",
     children: [
       {
         id: 2,
-        text: 'David'
+        text: "David"
       }
     ]
   },
   {
     id: 3,
-    text: 'Lisa',
+    text: "Lisa",
     children: [
       {
         id: 4,
-        text: 'Richard'
+        text: "Richard"
       }
     ]
   }
@@ -50,30 +50,30 @@ const items = [
 const grocery = [
   {
     id: 0,
-    text: 'Apples',
-    type: 'fruits'
+    text: "Apples",
+    type: "fruits"
   },
   {
     id: 1,
-    text: 'Fruit box',
-    accepts: ['fruits'],
+    text: "Fruit box",
+    accepts: ["fruits"],
     children: [
       {
         id: 2,
-        text: 'Bananas',
-        type: 'fruits'
+        text: "Bananas",
+        type: "fruits"
       }
     ]
   },
   {
     id: 3,
-    text: 'Box',
-    accepts: ['fruits', 'sweets'],
+    text: "Box",
+    accepts: ["fruits", "sweets"],
     children: [
       {
         id: 4,
-        text: 'Candy',
-        type: 'sweets'
+        text: "Candy",
+        type: "sweets"
       }
     ]
   }
@@ -85,14 +85,14 @@ class Example extends Component {
     defaultCollapsed: false
   };
 
-  collapse = (collapseCase) => {
+  collapse = collapseCase => {
     if (this.refNestable) {
       switch (collapseCase) {
         case 0:
-          this.refNestable.collapse('NONE');
+          this.refNestable.collapse("NONE");
           break;
         case 1:
-          this.refNestable.collapse('ALL');
+          this.refNestable.collapse("ALL");
           break;
         case 2:
           this.refNestable.collapse([1]);
@@ -119,9 +119,10 @@ class Example extends Component {
 
   renderExampleOne = () => {
     const { defaultCollapsed } = this.state;
-    const onDefaultCollapsed = () => this.setState({
-      defaultCollapsed: !defaultCollapsed
-    });
+    const onDefaultCollapsed = () =>
+      this.setState({
+        defaultCollapsed: !defaultCollapsed
+      });
 
     return (
       <div>
@@ -131,16 +132,26 @@ class Example extends Component {
           items={items}
           collapsed={defaultCollapsed}
           renderItem={this.renderItem}
-          ref={el => this.refNestable = el}
+          ref={el => (this.refNestable = el)}
         />
 
-        <br/>
-        <button type="button" onClick={() => this.collapse(0)}>Expand all</button>
-        <button type="button" onClick={() => this.collapse(1)}>Collapse all</button>
-        <button type="button" onClick={() => this.collapse(2)}>Collapse Harry only</button>
+        <br />
+        <button type="button" onClick={() => this.collapse(0)}>
+          Expand all
+        </button>
+        <button type="button" onClick={() => this.collapse(1)}>
+          Collapse all
+        </button>
+        <button type="button" onClick={() => this.collapse(2)}>
+          Collapse Harry only
+        </button>
         <form style={{ display: "inline-block" }}>
           <label>
-            <input type="checkbox" name="collapsed" onChange={onDefaultCollapsed}/>
+            <input
+              type="checkbox"
+              name="collapsed"
+              onChange={onDefaultCollapsed}
+            />
             Collapsed by default
           </label>
         </form>
@@ -156,7 +167,7 @@ class Example extends Component {
         <Nestable
           items={items}
           renderItem={this.renderItem}
-          handler={<span style={handlerStyles}/>}
+          handler={<span style={handlerStyles} />}
         />
       </div>
     );
@@ -195,7 +206,7 @@ class Example extends Component {
           <option value={3}>Example with confirmChange</option>
         </select>
 
-        <hr/>
+        <hr />
 
         {example === 1 && this.renderExampleOne()}
         {example === 2 && this.renderExampleTwo()}
@@ -205,7 +216,4 @@ class Example extends Component {
   }
 }
 
-render(
-  <Example />,
-  document.getElementById('app')
-);
+render(<Example />, document.getElementById("app"));
